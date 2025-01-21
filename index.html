@@ -1,41 +1,138 @@
 <!DOCTYPE html>
-<html style="height: 100%;">
+<html lang="en" style="height: 100%;">
 <head>
-    <title>Play Watermelon Game</title>
-    <meta name="description" content="Watermelon Game is a fruit-based merging game where you drop fruits into the field of play. When identical fruits touch, they merge into a larger and more valuable fruit. Merge 11 fruits in a row to create a watermelon.">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Zone</title>
     <style>
         body {
-            background: #ffffff;
-            padding: 0;
             margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
         }
-        #thegame {
-            overflow: hidden;
+
+        header {
+            background-color: #0078d4;
+            color: white;
+            padding: 1rem 2rem;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2rem;
+        }
+
+        #game-container {
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .game-list {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .game-card {
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            width: 200px;
+            padding: 1rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .game-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .game-card img {
             width: 100%;
-            height: 100%;
-        }
-        #thewelcomeimage {
-            max-width: 100%;
             height: auto;
-            max-height: 90vh;
+            border-radius: 8px;
+        }
+
+        .game-card h3 {
+            margin: 0.5rem 0;
+        }
+
+        .game-area {
+            display: none;
+            margin-top: 2rem;
+        }
+
+        .back-button {
+            margin-top: 1rem;
+            padding: 0.5rem 1rem;
+            background-color: #0078d4;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .back-button:hover {
+            background-color: #005a9e;
         }
     </style>
-    <script src="phaser.min.js"></script>
-    <script src="game.js"></script>
-    <script>
-        function stayCalm(event) {
-            event.preventDefault();
-        }
-    </script>
 </head>
-<body ontouchmove="stayCalm(event)" style="height: 100%;">
-    <div id="thegame">
-        <canvas width="750" height="1334" style="width: 373.625px; height: 664.554px; margin-left: 234px; margin-top: 0;"></canvas>
+<body>
+    <header>
+        <h1>Game Zone</h1>
+        <p>Select a game to play!</p>
+    </header>
+
+    <div id="game-container">
+        <!-- Game Selection -->
+        <div class="game-list">
+            <div class="game-card" onclick="loadGame('watermelon')">
+                <img src="https://www.culinaryschools.org/images/video-game.png" alt="Watermelon Game">
+                <h3>Watermelon Game</h3>
+            </div>
+        </div>
+
+        <!-- Game Area -->
+        <div class="game-area" id="game-area">
+            <button class="back-button" onclick="goBack()">← Back to Games</button>
+            <div id="game-display">
+                <!-- Game content will be loaded here -->
+            </div>
+        </div>
     </div>
 
-    <noscript>
-        <h2>About Watermelon Game</h2>
-        <p>Watermelon Game is a fruit-based merging game where you drop fruits into the field of play. When identical fruits touch, they merge into a larger and more valuable fruit. Merge 11 fruits in a row to create a watermelon.</p>
-    </noscript>
+    <script>
+        // Function to load a game
+        function loadGame(game) {
+            const gameList = document.querySelector('.game-list');
+            const gameArea = document.getElementById('game-area');
+            const gameDisplay = document.getElementById('game-display');
+
+            gameList.style.display = 'none';
+            gameArea.style.display = 'block';
+
+            if (game === 'watermelon') {
+                gameDisplay.innerHTML = `
+                    <iframe src="watermelon.html" style="width: 100%; height: 80vh; border: none;"></iframe>
+                `;
+            }
+        }
+
+        // Function to go back to the game selection
+        function goBack() {
+            const gameList = document.querySelector('.game-list');
+            const gameArea = document.getElementById('game-area');
+            const gameDisplay = document.getElementById('game-display');
+
+            gameList.style.display = 'flex';
+            gameArea.style.display = 'none';
+            gameDisplay.innerHTML = '';
+        }
+    </script>
 </body>
 </html>
